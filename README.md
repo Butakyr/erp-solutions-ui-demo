@@ -7,6 +7,9 @@ It is designed for scalable, maintainable, and readable UI test automation.
 
 ## 📂 Project Structure
 
+<details>
+<summary>Click to expand</summary>
+
 automation-framework/
 │── src
 │ └── test
@@ -22,6 +25,8 @@ automation-framework/
 │── configuration.properties # Configurable browser & credentials
 │── pom.xml # Maven build & dependencies
 │── README.md # Documentation
+</details>
+
 
 ---
 
@@ -41,6 +46,9 @@ It improves communication and ensures tests represent user behavior.
 
 ## ✍️ Gherkin
 **Gherkin syntax** is used to write test scenarios in `.feature` files.  
+
+<details>
+<summary>Click to expand</summary>
 Example:  
 
 Feature: As a user, I should be able to log out.
@@ -49,12 +57,14 @@ Feature: As a user, I should be able to log out.
     Given user is logged in
     When user clicks on logout button
     Then validate user is on the login page
-
+</details>
 ---
 
 ⚙️ Step Definitions
 Step Definitions link Gherkin steps to Java methods (inside step_definitions/).
 
+<details>
+<summary>Click to expand</summary>
 Example:
 @Given("user is logged in")
     public void user_is_logged_in() {
@@ -75,7 +85,7 @@ Example:
         String expectedUrl = ConfigurationReader.getProperty("url");
         Assert.assertEquals(expectedUrl,actualUrl);
     }
-
+</details>
 ---
 
 📦 Cucumber Maven Project
@@ -99,7 +109,8 @@ mvn clean test
 
 🧩 Adding Selenium Dependencies and Classes
 pom.xml includes required dependencies:
-
+<details>
+<summary>Click to expand</summary>
 xml
 <dependency>
   <groupId>org.seleniumhq.selenium</groupId>
@@ -116,6 +127,7 @@ xml
   <artifactId>cucumber-junit</artifactId>
   <version>7.x.x</version>
 </dependency>
+</details>
 
 NOTE: The versions of dependencies may vary depending when you will be cloning this project
 ---
@@ -128,6 +140,8 @@ This framework glues Cucumber (feature files) with Selenium (UI automation) thro
 🌐 First Selenium Scenario
 Located inside features/.
 
+<details>
+<summary>Click to expand</summary>
 gherkin
 Scenario Outline: Verify login with different user types
     When user logs in as "<userType>"
@@ -139,7 +153,7 @@ Scenario Outline: Verify login with different user types
       | crm_manager       |
       | inventory_manager |
       | expenses_manager  |
-
+</details>
 ---
 
 🔄 Hooks
@@ -161,12 +175,15 @@ When User searches for {string}
 ---
 
 🔄 Using Background to Reuse Given Condition
+
+<details>
+<summary>Click to expand</summary>
 gherkin
 Background:
   Given User is logged in
 🏷 Cucumber Tags
 Tag scenarios with @Smoke, @Regression for selective runs.
-
+</details>
 ---
 
 🧮 Tag Expressions
@@ -202,6 +219,8 @@ public class CukesRunner { }
 📊 Data Tables
 Use structured data directly in steps:
 
+<details>
+<summary>Click to expand</summary>
  Scenario Outline:Verify users see the calendar as a daily
     When user logs in as "<userType>"
     Then User should see "<account_Name>" on the page
@@ -218,10 +237,12 @@ Use structured data directly in steps:
       | crm_manager       | EventsCRMManager10 |
       | inventory_manager | InventoryManager11 |
       | expenses_manager  | ExpensesManager10  |
-
+</details>
 ---
 
 🧩 Scenario Outline with Example
+<details>
+<summary>Click to expand</summary>
 
 Scenario Outline: Verify login with invalid credentials
     When user logs in with invalid "<username>","<password>"
@@ -231,6 +252,7 @@ Scenario Outline: Verify login with invalid credentials
       | posmanager5@info.com | wrongPassword |
       | wrong@UserName.com   | posmanager
 
+</details>
 ---
 
 📸 Adding Screenshot to Failed Scenarios
@@ -260,6 +282,8 @@ mvn test -Dcucumber.filter.tags="@Smoke"
 The configuration.properties file is used to store environment-specific settings
 This ensures flexibility, reusability, and cleaner test scripts.
 
+<details>
+<summary>Click to expand</summary>
 Example keys:
 
 properties
@@ -268,7 +292,7 @@ baseUrl=https://example.com
 username=testuser
 password=securePassword123
 timeout=30
-
+</details>
 ---
 
 🌟 Why BDD 
