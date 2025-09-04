@@ -10,23 +10,18 @@ It is designed for scalable, maintainable, and readable UI test automation.
 <details>
 <summary>Click to expand</summary>
 
-automation-framework/
-│── src
-│ └── test
-│ ├── java
-│ │ ├── pages/ # Page Object classes (locators + actions)
-│ │ ├── runners/ # Cucumber TestRunner classes
-│ │ ├── step_definitions/ # Glue code for Gherkin steps
-│ │ └── utilities/ # Helpers, config readers, and drivers
-│ └── resources
-│ ├── features/ # Gherkin feature files
-│ └── filesToUpload/ # Test data files (uploads etc.)
-│
-│── configuration.properties # Configurable browser & credentials
-│── pom.xml # Maven build & dependencies
-│── README.md # Documentation
-</details>
+| Folder/File                     | Description                           |
+|---------------------------------|---------------------------------------|
+| `pages/`                        | Page Object classes                   |
+| `runners/`                      | JUnit TestRunner classes              |
+| `step_definitions/`             | Step Definitions (glue code)          |
+| `utilities/`                    | Helpers (Hooks, ConfigReader, Driver) |
+| `features/`                     | Gherkin feature files                 |
+| `configuration.properties`      | Browser & credentials configuration   |
+| `pom.xml`                       | Maven dependencies                    |
 
+
+</details>
 
 ---
 
@@ -58,6 +53,7 @@ Feature: As a user, I should be able to log out.
     When user clicks on logout button
     Then validate user is on the login page
 </details>
+
 ---
 
 ⚙️ Step Definitions
@@ -65,7 +61,7 @@ Step Definitions link Gherkin steps to Java methods (inside step_definitions/).
 
 <details>
 <summary>Click to expand</summary>
-Example:
+  
 @Given("user is logged in")
     public void user_is_logged_in() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
@@ -85,7 +81,9 @@ Example:
         String expectedUrl = ConfigurationReader.getProperty("url");
         Assert.assertEquals(expectedUrl,actualUrl);
     }
+    
 </details>
+
 ---
 
 📦 Cucumber Maven Project
@@ -109,9 +107,10 @@ mvn clean test
 
 🧩 Adding Selenium Dependencies and Classes
 pom.xml includes required dependencies:
+
 <details>
 <summary>Click to expand</summary>
-xml
+  
 <dependency>
   <groupId>org.seleniumhq.selenium</groupId>
   <artifactId>selenium-java</artifactId>
@@ -130,6 +129,7 @@ xml
 </details>
 
 NOTE: The versions of dependencies may vary depending when you will be cloning this project
+
 ---
 
 🥒 Cucumber Java with Selenium
@@ -142,7 +142,7 @@ Located inside features/.
 
 <details>
 <summary>Click to expand</summary>
-gherkin
+  
 Scenario Outline: Verify login with different user types
     When user logs in as "<userType>"
     Then user should see "Odoo" in page title
@@ -153,7 +153,9 @@ Scenario Outline: Verify login with different user types
       | crm_manager       |
       | inventory_manager |
       | expenses_manager  |
+      
 </details>
+      
 ---
 
 🔄 Hooks
@@ -178,12 +180,15 @@ When User searches for {string}
 
 <details>
 <summary>Click to expand</summary>
+  
 gherkin
 Background:
   Given User is logged in
 🏷 Cucumber Tags
 Tag scenarios with @Smoke, @Regression for selective runs.
+
 </details>
+
 ---
 
 🧮 Tag Expressions
@@ -221,6 +226,7 @@ Use structured data directly in steps:
 
 <details>
 <summary>Click to expand</summary>
+  
  Scenario Outline:Verify users see the calendar as a daily
     When user logs in as "<userType>"
     Then User should see "<account_Name>" on the page
@@ -238,9 +244,11 @@ Use structured data directly in steps:
       | inventory_manager | InventoryManager11 |
       | expenses_manager  | ExpensesManager10  |
 </details>
+
 ---
 
 🧩 Scenario Outline with Example
+
 <details>
 <summary>Click to expand</summary>
 
@@ -253,6 +261,7 @@ Scenario Outline: Verify login with invalid credentials
       | wrong@UserName.com   | posmanager
 
 </details>
+
 ---
 
 📸 Adding Screenshot to Failed Scenarios
@@ -293,11 +302,13 @@ username=testuser
 password=securePassword123
 timeout=30
 </details>
+
 ---
 
 🌟 Why BDD 
 
 Business Need ➝ Feature File (Gherkin) ➝ Step Definitions ➝ Automated Test
+
 📘 Business defines acceptance criteria in plain English
 
 💻 Developers & QA implement step definitions with Selenium
